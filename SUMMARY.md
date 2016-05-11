@@ -12,4 +12,5 @@
    * [Git Server－Gogs安装](git_servergogsan_zhuang.md)
    * [Git安装－CentOS 6.7](gitan_zhuang_ff0d_centos_6__7.md)
 * [PHP](php.md)
+   * PHP CentOS 6.7 环境安装
 
