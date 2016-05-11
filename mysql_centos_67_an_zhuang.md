@@ -10,3 +10,17 @@ rpm -Uvh mysql-community-release-el6-5.noarch.rpm
 ```
 
 ### 安装 MySQL 5.6
+
+输入以下口令安装 MySQL 5.6
+
+ 
+
+yum -y install mysql mysql-server
+
+ 
+
+Type in the below to verify the correct packages were installed:
+
+ 
+
+rpm -qa | grep mysql
