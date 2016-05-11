@@ -288,7 +288,7 @@ Starting MySQL.. SUCCESS!
 
 最直接的方式：
 
-```bash
+```
 [root@localhost mysql]# /usr/local/mysql/bin/mysqladmin -uroot shut
 down
 ```
