@@ -328,7 +328,6 @@ flush privileges;
 
 ```
 [root@localhost ~]# /usr/local/mysql/bin/ndb_mgm
--- NDB Cluster -- Management Client --
 ndb_mgm> show
 Cluster Configuration
 ```
