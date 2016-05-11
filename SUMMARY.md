@@ -13,4 +13,5 @@
    * [Git安装－CentOS 6.7](gitan_zhuang_ff0d_centos_6__7.md)
 * [PHP](php.md)
    * [PHP CentOS 6.7 环境安装](php_centos_67_huan_jing_an_zhuang.md)
+* Java
 
