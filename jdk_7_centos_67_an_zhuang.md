@@ -20,7 +20,7 @@ $ sudo yum remove java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.4.el7_0.x86_64 java-1.
 #### 1、解压
 首先解压下载得来的JDK：（JDK的tar.gz压缩包放在了~/dev目录下）
 
-```
+```bash 
 $ sudo mkdir /usr/lib/jdk #如若没有/usr/lib/jdk路径，则执行此句予以创建jdk文件夹
 $ sudo tar -zxvf jdk-8u11-linux-i586.tar.gz -C /usr/lib/jdk #注意：-C, --directory=DIR        改变至目录 DIR
 $  ls /usr/lib/jdk
@@ -74,7 +74,7 @@ $ sudo update-alternatives --config java   #配置默认java命令
 ### 第三步：测试JDK
 
 ``` bash 
-[Randy@localhost ~]$ java -version
+$ java -version
 java version "1.8.0_11"
 Java(TM) SE Runtime Environment (build 1.8.0_11-b12)
 Java HotSpot(TM) Server VM (build 25.11-b03, mixed mode)
