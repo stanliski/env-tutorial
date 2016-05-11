@@ -393,3 +393,64 @@ mysql> SELECT * FROM td_test2;
 +------+
 2 rows in set (0.01 sec)
 ```
+
+查看表的引擎是不是NDB：
+
+```sql
+show create table td_test2;
+```
+
+- 第3步： 反向测试，SQL节点2（192.168.2.254）上增加数据：
+
+```sql
+mysql> create database bb;
+mysql> use bb;
+mysql> CREATE TABLE td_test3 (i INT) ENGINE=NDB;
+mysql> INSERT INTO td_test3 () VALUES (98);
+mysql> SELECT * FROM td_test3;
+```
+
+SQL节点1（192.168.2.253）上查看数据：
+
+```sql
+mysql> use bb;
+Database changed
+mysql> SELECT * FROM td_test3;
++------+
+| i |
++------+
+| 98 |
++------+
+1 row in set (0.00 sec)
+```
+
+####关闭集群
+先关闭管理节点，然后关闭SQL节点和数据节点。
+####集群启动操作顺序
+要再次启动集群，按照以下顺序执行：
+管理节点 -> 数据节点 –> SQL节点 
+> 注意：此次启动数据节点时不要加”–initial”参数。
+
+### 安装及测试中的错误
+
+启动中的错误
+错误提示：
+
+```bash
+Can't connect to local MySQL server through socket '/tmp/mysql.soc
+k' (2)
+```
+
+解决办法1（端口占用）
+
+```bash
+netstat -anp |grep 3306
+kill -9 进程号
+```
+
+解决办法2（权限问题）
+
+```bash
+[root@localhost mysql]# chown -R mysql:mysql /var/mysql
+//修改自定义文件夹的访问权限
+```
