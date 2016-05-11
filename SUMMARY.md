@@ -10,5 +10,5 @@
    * [Python虚拟环境virtualenv安装](pythonxu_ni_huan_jing_virtualenv_an_zhuang.md)
 * [Git](git.md)
    * Git Server－Gogs安装
-   * Git安装－CentOS 6.7
+   * [Git安装－CentOS 6.7](gitan_zhuang_ff0d_centos_6__7.md)
 
