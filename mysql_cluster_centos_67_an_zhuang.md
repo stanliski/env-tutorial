@@ -352,3 +352,44 @@ id=1 @192.168.15.231 (mysql-5.5.22 ndb-7.2.6)
 id=4 @192.168.15.232 (mysql-5.5.22 ndb-7.2.6)
 id=5 @192.168.15.233 (mysql-5.5.22 ndb-7.2.6)
 ```
+
+可以看到这里的数据节点、管理节点、sql节点都是正常的。
+
+#### 数据同步性测试
+
+在一个数据节点上进行相关数据库的创建，然后到另外一个数据节点上看看数据是否同步。
+- 第1步：
+SQL节点1（192.168.2.253）上增加数
+
+```bash
+[root@localhost mysql]# /etc/rc.d/init.d/mysqld status
+//检验mysql是否运行
+[root@localhost mysql]# /etc/rc.d/init.d/mysqld start
+//启动mysql
+[root@localhost mysql]# /usr/local/mysql/bin/mysql -u root -p
+Enter password:
+mysql> show databases;
+mysql> create database testdb2;
+mysql> use testdb2;
+mysql> CREATE TABLE td_test2 (i INT) ENGINE=NDB;
+//这里必须指定数据库表的引擎为NDBCLUSTER，与配置文件中的名称相同
+mysql> INSERT INTO td_test2() VALUES (1);
+mysql> INSERT INTO td_test2() VALUES (152);
+mysql> SELECT * FROM td_test2;
+```
+
+- 第2步：
+进入到SQL节点2（192.168.2.254）上查看数据
+
+```sql
+mysql> use testdb2;
+Database changed
+mysql> SELECT * FROM td_test2;
++------+
+| i |
++------+
+| 126 |
+| 1 |
++------+
+2 rows in set (0.01 sec)
+```
