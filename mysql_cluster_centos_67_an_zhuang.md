@@ -55,14 +55,14 @@ MySQL Cluster 使用了一个专用的基于内存的存储引擎——NDB引擎
 
 检查系统中已经安装过的mysql信息，操作如下：
 
-```
+```bash
 [root@localhost /]# rpm -qa | grep mysql
 [root@localhost /]# service mysql status
 ```
 
 如果安装过其他版本的mysql，请卸载，操作如下：
 
-```
+```bash
 /etc/init.d/mysqld stop //关闭目前的mysql服务
 ps -ef | grep mysql //检验mysql是否已经关闭
 #如果没关闭，执行kill -9 端口号
@@ -75,7 +75,7 @@ rm -rf /var/lib/mysql // 删除mysql的安装目录
 #### 管理节点安装
 安装管理节点（192.168.15.231）
 
-```
+```bash
 [root@localhost /]# groupadd mysql
 [root@localhost /]# useradd mysql -g mysql
 [root@localhost /]# cd /usr/local
@@ -90,7 +90,7 @@ mysql
 
 #### 管理节点配置
 
-```
+```bash
 [root@localhost ~]# mkdir /var/lib/mysql-cluster
 [root@localhost ~]# cd /var/lib/mysql-cluster
 [root@localhost mysql-cluster]# vim /var/lib/mysql-cluster/config.i
@@ -99,7 +99,7 @@ ni
 
 在`config.ini`中添加以下内容:
 
-```
+```ini
 [NDBD DEFAULT]
 NoOfReplicas=1
 [TCP DEFAULT]
@@ -122,4 +122,165 @@ HostName=192.168.2.253
 [MYSQLD]
 #第二个SQL节点
 HostName=192.168.2.254
+```
+
+#### 管理节点启动
+
+```bash
+[root@localhost ~]# /usr/local/mysql/bin/ndb_mgmd -f /var/lib/mysq
+l-cluster/config.ini
+[root@localhost ~]# mkdir /var/mysql/logs
+[root@localhost ~]# netstat -lntpu
+```
+看到`tcp 0 0 0.0.0.0:1186`开放说明启动正常
+开启管理节点服务器的`1186`端口
+
+#### 管理节点检验
+
+执行以下操作：
+
+```bash
+[root@localhost /]# ndb_mgm // 管理节点
+-- NDB Cluster -- Management Client --
+ndb_mgm> show
+Connected to Management Server at: localhost:1186
+Cluster Configuration
+---------------------
+[ndbd(NDB)] 2 node(s)
+id=2 (not connected, accepting connect from 192.168.2.251)
+id=3 (not connected, accepting connect from 192.168.2.252)
+[ndb_mgmd(MGM)] 1 node(s)
+id=1 @192.168.2.250 (mysql-5.5.22 ndb-7.2.6)
+[mysqld(API)] 2 node(s)
+id=4 (not connected, accepting connect from 192.168.2.253)
+id=5 (not connected, accepting connect from 192.168.2.254)
+```
+
+#### 管理节点关闭
+
+```bash
+[root@localhost /]# /usr/local/mysql/bin/ndb_mgm -e shutdown
+#成功后终端打印出以下信息
+Connected to Management Server at: 192.168.2.250:1186
+3 NDB Cluster node(s) have shutdown.
+Disconnecting to allow management server to shutdown.
+```
+
+### 数据节点
+
+#### 数据节点安装
+
+- 数据节点1： 192.168.2.251
+- 数据节点2： 192.168.2.252
+
+```bash
+[root@localhost /]# groupadd mysql
+[root@localhost /]# useradd mysql -g mysql
+[root@localhost /]# cd /usr/local
+[root@localhost local]# tar -zxv -f mysql-cluster-gpl-7.2.6-linux
+2.6-x86_64.tar.gz
+[root@localhost local]# mv mysql-cluster-gpl-7.2.6-linux2.6-x86_64
+mysql
+[root@localhost local]# chown -R mysql:mysql mysql
+[root@localhost local]# cd mysql
+[root@localhost mysql]# scripts/mysql_install_db --user=mysql
+[root@localhost mysql]# cp support-files/my-medium.cnf /etc/my.cnf
+[root@localhost mysql]# cp support-files/mysql.server /etc/init.d/m
+ysqld
+```
+
+#### 数据节点配置
+
+对数据节点进行配置，执行以下操作： 
+
+```bash
+[root@localhost mysql]# mkdir /var/mysql/data
+[root@localhost mysql]# mkdir /var/mysql/logs
+[root@localhost mysql]# vi /etc/my.cnf
+```
+向文件追加以下内容：
+
+```bash
+[MYSQLD]
+ndbcluster
+ndb-connectstring=192.168.2.250
+[MYSQL_CLUSTER]
+ndb-connectstring=192.168.2.250
+[NDB_MGM]
+connect-string=192.168.2.250
+```
+
+#### 数据节点启动
+
+启动此处时，管理节点服务器防火墙必须开启1186,3306端口。
+> 注意：只是在第一次启动或在备份／恢复或配置变化后重启ndbd时，才加–initial参数！
+第一次启动如下：
+
+```bash
+[root@localhost mysql]# /usr/local/mysql/bin/ndbd --initial
+2013-01-30 13:43:53 [ndbd] INFO -- Angel connected to '192.16
+8.2.250:1186'
+2013-01-30 13:43:53 [ndbd] INFO -- Angel allocate
+```
+
+正常启动方式： 
+
+```
+[root@localhost mysql]# /usr/local/mysql/bin/ndbd
+```
+
+#### 数据节点关闭
+
+```bash
+[root@localhost /]# /etc/rc.d/init.d/mysqld stop
+#或者
+[root@localhost mysql]# /etc/init.d/mysql stop
+Shutting down MySQL.. SUCCESS!
+/usr/local/mysql/bin/mysqladmin -uroot shutdown
+```
+
+### SQL节点安装
+
+SQL节点和存储节点(NDB节点)安装相同，都执行以下操作；
+- sql节点1： 192.168.2.253
+- sql节点2： 192.168.2.254
+
+```bash
+[root@localhost /]# groupadd mysql
+[root@localhost /]# useradd mysql -g mysql
+[root@localhost /]# cd /usr/local
+[root@localhost local]# tar -zxv -f mysql-cluster-gpl-7.2.6-linux
+2.6-x86_64.tar.gz
+[root@localhost local]# mv mysql-cluster-gpl-7.2.6-linux2.6-x86_64
+mysql
+[root@localhost local]# chown -R mysql:mysql mysql
+[root@localhost local]# cd mysql
+[root@localhost mysql]# scripts/mysql_install_db --user=mysql
+[root@localhost mysql]# cp support-files/my-medium.cnf /etc/my.cnf
+[root@localhost mysql]# cp support-files/mysql.server /etc/init.d/m
+ysqld
+```
+
+#### SQL节点配置
+
+执行以下操作：
+
+```bash
+[root@localhost mysql]# mkdir /var/mysql/data //创建存储数据的文件
+夹
+[root@localhost mysql]# mkdir /var/mysql/logs //创建存储日志的文件
+夹
+[root@localhost mysql]# vi /etc/my.cnf //修改配置文件
+```
+
+追加以下内容：
+
+```ini
+[MYSQLD]
+ndbcluster
+ndb-connectstring=192.168.2.250
+[MYSQL_CLUSTER]
+ndb-connectstring=192.168.2.250
+[NDB_MGM]
+connect-string=192.168.2.250
 ```
