@@ -1,15 +1,12 @@
-title: MySQL Cluster CentOS 6.7 安装
-published: 2016-5-11
-
 # MySQL Cluster CentOS 6.7 安装
 
 ### MySQL Cluster 架构介绍
 
-#### 简介
 MySQL Cluster 是MySQL 适合于分布式计算环境的高实用、可拓展、高性能、高冗余版本，其研发设计的初衷就是要满足许多行业里的最严酷应用要求，这些应用中经常要求数据库运行的可靠性要达到`99.999%`。MySQL Cluster允许在无共享的系统中部署“内存中”数据库集群，通过无共享体系结构，系统能够使用廉价的硬件，而且对软硬件无特殊要求。此外，由于每个组件有自己的内存和磁盘，不存在单点故障。实际上，MySQL集群是把一个叫做NDB的内存集群存储引擎集成与标准的MySQL服务器集
-成。它包含一组计算机，每个都跑一个或者多个进程，这可能包括一个MySQL服务器，一个数据节点，一个管理服务器和一个专有的一个数据访问程序。MySQL Cluster能够使用多种故障切换和负载平衡选项配置NDB存储引擎，但在Cluster 级别上的存储引擎上做这个最简单。
+成。它包含一组计算机，每个都跑一个或者多个进程，这可能包括一个MySQL服务器，一个数据节点，一个管理服务器和一个专有的一个数据访问程序。MySQL Cluster能够使用多种故障切换和负载平衡选项配置NDB存储引擎，但在Cluster 级别上的存储引擎上做这个最简单。以下为MySQL集群结构关系图
 
-#### 结构
+![](http://img.ph.126.net/f65rW-6SVQhinnspeP2yUQ==/2503156967905194519.jpg)
+
 MySQL从结构看，由3类节点(计算机或进程)组成，分别是：
 - `管理节点`:用于给整个集群其他节点提供配置、管理、仲裁等功能。理论上通过一台
 服务器提供服务就可以了。
@@ -58,14 +55,14 @@ MySQL Cluster 使用了一个专用的基于内存的存储引擎——NDB引擎
 
 检查系统中已经安装过的mysql信息，操作如下：
 
-```bash
+```
 [root@localhost /]# rpm -qa | grep mysql
 [root@localhost /]# service mysql status
 ```
 
 如果安装过其他版本的mysql，请卸载，操作如下：
 
-```bash
+```
 /etc/init.d/mysqld stop //关闭目前的mysql服务
 ps -ef | grep mysql //检验mysql是否已经关闭
 #如果没关闭，执行kill -9 端口号
@@ -78,7 +75,7 @@ rm -rf /var/lib/mysql // 删除mysql的安装目录
 #### 管理节点安装
 安装管理节点（192.168.15.231）
 
-```bash
+```
 [root@localhost /]# groupadd mysql
 [root@localhost /]# useradd mysql -g mysql
 [root@localhost /]# cd /usr/local
@@ -93,7 +90,7 @@ mysql
 
 #### 管理节点配置
 
-```bash
+```
 [root@localhost ~]# mkdir /var/lib/mysql-cluster
 [root@localhost ~]# cd /var/lib/mysql-cluster
 [root@localhost mysql-cluster]# vim /var/lib/mysql-cluster/config.i
@@ -102,7 +99,7 @@ ni
 
 在`config.ini`中添加以下内容:
 
-```ini
+```
 [NDBD DEFAULT]
 NoOfReplicas=1
 [TCP DEFAULT]
@@ -129,7 +126,7 @@ HostName=192.168.2.254
 
 #### 管理节点启动
 
-```bash
+```
 [root@localhost ~]# /usr/local/mysql/bin/ndb_mgmd -f /var/lib/mysq
 l-cluster/config.ini
 [root@localhost ~]# mkdir /var/mysql/logs
@@ -142,7 +139,7 @@ l-cluster/config.ini
 
 执行以下操作：
 
-```bash
+```
 [root@localhost /]# ndb_mgm // 管理节点
 -- NDB Cluster -- Management Client --
 ndb_mgm> show
@@ -161,7 +158,7 @@ id=5 (not connected, accepting connect from 192.168.2.254)
 
 #### 管理节点关闭
 
-```bash
+```
 [root@localhost /]# /usr/local/mysql/bin/ndb_mgm -e shutdown
 #成功后终端打印出以下信息
 Connected to Management Server at: 192.168.2.250:1186
@@ -176,7 +173,7 @@ Disconnecting to allow management server to shutdown.
 - 数据节点1： 192.168.2.251
 - 数据节点2： 192.168.2.252
 
-```bash
+```
 [root@localhost /]# groupadd mysql
 [root@localhost /]# useradd mysql -g mysql
 [root@localhost /]# cd /usr/local
@@ -196,14 +193,14 @@ ysqld
 
 对数据节点进行配置，执行以下操作： 
 
-```bash
+```
 [root@localhost mysql]# mkdir /var/mysql/data
 [root@localhost mysql]# mkdir /var/mysql/logs
 [root@localhost mysql]# vi /etc/my.cnf
 ```
 向文件追加以下内容：
 
-```bash
+```
 [MYSQLD]
 ndbcluster
 ndb-connectstring=192.168.2.250
@@ -219,7 +216,7 @@ connect-string=192.168.2.250
 > 注意：只是在第一次启动或在备份／恢复或配置变化后重启ndbd时，才加–initial参数！
 第一次启动如下：
 
-```bash
+```
 [root@localhost mysql]# /usr/local/mysql/bin/ndbd --initial
 2013-01-30 13:43:53 [ndbd] INFO -- Angel connected to '192.16
 8.2.250:1186'
@@ -234,7 +231,7 @@ connect-string=192.168.2.250
 
 #### 数据节点关闭
 
-```bash
+```
 [root@localhost /]# /etc/rc.d/init.d/mysqld stop
 #或者
 [root@localhost mysql]# /etc/init.d/mysql stop
@@ -248,7 +245,7 @@ SQL节点和存储节点(NDB节点)安装相同，都执行以下操作；
 - sql节点1： 192.168.2.253
 - sql节点2： 192.168.2.254
 
-```bash
+```
 [root@localhost /]# groupadd mysql
 [root@localhost /]# useradd mysql -g mysql
 [root@localhost /]# cd /usr/local
@@ -268,7 +265,7 @@ ysqld
 
 执行以下操作：
 
-```bash
+```
 [root@localhost mysql]# mkdir /var/mysql/data //创建存储数据的文件
 夹
 [root@localhost mysql]# mkdir /var/mysql/logs //创建存储日志的文件
@@ -278,7 +275,7 @@ ysqld
 
 追加以下内容：
 
-```bash
+```
 [MYSQLD]
 ndbcluster
 ndb-connectstring=192.168.2.250
@@ -292,7 +289,7 @@ connect-string=192.168.2.250
 
 执行以下操作：
 
-```bash
+```
 [root@localhost mysql]# service mysqld start
 Starting MySQL.. SUCCESS!
 ```
@@ -308,7 +305,7 @@ down
 
 或者
 
-```bash
+```
 [root@localhost /]# /etc/rc.d/init.d/mysqld stop
 [root@localhost mysql]# /etc/init.d/mysql stop
 Shutting down MySQL.. SUCCESS!
@@ -318,19 +315,19 @@ Shutting down MySQL.. SUCCESS!
 
 初始化root密码
 
-```sql
+```
 update user set password=PASSWORD(‘NewPassword’) where Use
 r='root';
 ```
 
 数据库输入密码报错
 
-```sql
+```
 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (usin
 g password: NO)
 ```
 
-```sql
+```
 set password for 'root'@'localhost' = password('NewPassword');
 flush privileges;
 ```
@@ -339,7 +336,7 @@ flush privileges;
 
 在管理节点（192.168.2.250）上查看服务状态
 
-```bash
+```
 [root@localhost ~]# /usr/local/mysql/bin/ndb_mgm
 -- NDB Cluster -- Management Client --
 ndb_mgm> show
@@ -364,7 +361,7 @@ id=5 @192.168.15.233 (mysql-5.5.22 ndb-7.2.6)
 - 第1步：
 SQL节点1（192.168.2.253）上增加数
 
-```bash
+```
 [root@localhost mysql]# /etc/rc.d/init.d/mysqld status
 //检验mysql是否运行
 [root@localhost mysql]# /etc/rc.d/init.d/mysqld start
@@ -384,7 +381,7 @@ mysql> SELECT * FROM td_test2;
 - 第2步：
 进入到SQL节点2（192.168.2.254）上查看数据
 
-```sql
+```
 mysql> use testdb2;
 Database changed
 mysql> SELECT * FROM td_test2;
@@ -399,13 +396,13 @@ mysql> SELECT * FROM td_test2;
 
 查看表的引擎是不是NDB：
 
-```sql
+```
 show create table td_test2;
 ```
 
 - 第3步： 反向测试，SQL节点2（192.168.2.254）上增加数据：
 
-```sql
+```
 mysql> create database bb;
 mysql> use bb;
 mysql> CREATE TABLE td_test3 (i INT) ENGINE=NDB;
@@ -415,7 +412,7 @@ mysql> SELECT * FROM td_test3;
 
 SQL节点1（192.168.2.253）上查看数据：
 
-```sql
+```
 mysql> use bb;
 Database changed
 mysql> SELECT * FROM td_test3;
@@ -439,14 +436,14 @@ mysql> SELECT * FROM td_test3;
 启动中的错误
 错误提示：
 
-```bash
+```
 Can't connect to local MySQL server through socket '/tmp/mysql.soc
 k' (2)
 ```
 
 解决办法1（端口占用）
 
-```bash
+```
 netstat -anp |grep 3306
 kill -9 进程号
 ```
