@@ -8,4 +8,5 @@
    * [Python CentOS 6.7 环境安装](python_centos_67_huan_jing_an_zhuang.md)
    * [Pip Centos 6.7 环境安装](pip_centos_67_huan_jing_an_zhuang.md)
    * [Python虚拟环境virtualenv安装](pythonxu_ni_huan_jing_virtualenv_an_zhuang.md)
+* Git
 
