@@ -1,3 +1,6 @@
+title: MySQL CentOS 6.7 安装
+published: 2016-5-11
+
 # MySQL Cluster CentOS 6.7 安装
 
 ### MySQL Cluster 架构介绍
