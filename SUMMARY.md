@@ -16,5 +16,5 @@
 * [Java](java.md)
    * [JDK 7 CentOS 6.7 安装](jdk_7_centos_67_an_zhuang.md)
 * [Kafka](kafka.md)
-   * CentOS环境多Broker单节点安装 Apache Kafka 0.8教程
+   * [CentOS环境多Broker单节点安装 Apache Kafka 0.8教程](centoshuan_jing_duo_broker_dan_jie_dian_an_zhuang_.md)
 
