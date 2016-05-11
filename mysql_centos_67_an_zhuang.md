@@ -25,5 +25,5 @@ rpm -qa | grep mysql
 可能会产生如下输出
 
 ```
-The output should look similar to the following:
+
 ```
