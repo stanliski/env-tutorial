@@ -188,3 +188,15 @@ Rock: Nerf Paper. Scissors is fi
 ```
 
 #### 启动消费者
+启动一个消费者终端读取topic中的信息
+
+```
+bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic ze
+rg.hydra --from-beginning
+```
+成功输出如下
+
+```
+Hello, world!
+Rock: Nerf Paper. Scissors is fine.
+```
