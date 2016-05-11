@@ -8,7 +8,7 @@
    * [Python CentOS 6.7 环境安装](python_centos_67_huan_jing_an_zhuang.md)
    * [Pip Centos 6.7 环境安装](pip_centos_67_huan_jing_an_zhuang.md)
    * [Python虚拟环境virtualenv安装](pythonxu_ni_huan_jing_virtualenv_an_zhuang.md)
-   * PIP基本使用教程
+   * [PIP基本使用教程](pipji_ben_shi_yong_jiao_cheng.md)
 * [Git](git.md)
    * [Git Server－Gogs安装](git_servergogsan_zhuang.md)
    * [Git安装－CentOS 6.7](gitan_zhuang_ff0d_centos_6__7.md)
