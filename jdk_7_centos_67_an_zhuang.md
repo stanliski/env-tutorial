@@ -70,3 +70,14 @@ $ sudo update-alternatives --config java   #配置默认java命令
 按 Enter 保留当前选项[+]，或者键入选项编号：1
 
 ```
+
+### 第三步：测试JDK
+
+``` bash 
+[Randy@localhost ~]$ java -version
+java version "1.8.0_11"
+Java(TM) SE Runtime Environment (build 1.8.0_11-b12)
+Java HotSpot(TM) Server VM (build 25.11-b03, mixed mode)
+[Randy@localhost ~]$ javac -version
+javac 1.8.0_11
+```
