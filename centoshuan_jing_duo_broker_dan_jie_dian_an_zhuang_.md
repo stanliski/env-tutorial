@@ -25,7 +25,7 @@
 使用Kafka时需要使用Zookeeper进行负载均衡与资源调度。可以通过以下指令启动
 Zookeeper：
 
-```
+```bash
 bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 Zookeeper默认会在 `*:2181/tcp`.端口进行监听
@@ -40,7 +40,7 @@ cp config/server.properties config/server01.properties
 
 编辑 `server01.properties`,修改配置文件中的如下字段：
 
-```
+```bash
 broker.id=1
 port=9092
 log.dir=/tmp/kafka-logs-1
@@ -146,7 +146,7 @@ isr: 3 (192.168.0.153:9094), 1 (192.168.0.153:9092)
 
 采样`sync模式`启动一个生产者
 
-```
+```bash
 bin/kafka-console-producer.sh --broker-list localhost:9092,localhos
 t:9093,localhost:9094 --sync \
 --topic zerg.hyd
@@ -154,7 +154,7 @@ t:9093,localhost:9094 --sync \
 
 启动后的输出：
 
-```
+```bash
 [...] INFO Verifying properties (kafka.utils.VerifiableProperties)
 [...] INFO Property broker.list is overridden to localhost:9092,loc
 alhost:9093,localhost:9094 (...)
@@ -182,7 +182,7 @@ zer.StringEncoder (...)
 
 启动完毕后，就可以向kafka集群发送消息：
 
-```
+```bash
 Hello, world!
 Rock: Nerf Paper. Scissors is fi
 ```
@@ -190,13 +190,13 @@ Rock: Nerf Paper. Scissors is fi
 #### 启动消费者
 启动一个消费者终端读取topic中的信息
 
-```
+```bash
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic ze
 rg.hydra --from-beginning
 ```
 成功输出如下
 
-```
+```bash
 Hello, world!
 Rock: Nerf Paper. Scissors is fine.
 ```
