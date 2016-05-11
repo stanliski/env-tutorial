@@ -53,7 +53,7 @@ cp config/server.properties config/server02.properties
 ```
 编辑 `server02.properties`,修改配置文件中的如下字段
 
-```
+```bash
 broker.id=2
 port=9093
 log.dir=/tmp/ka
@@ -61,13 +61,13 @@ log.dir=/tmp/ka
 
 配置第三个Broker
 
-```
+```bash
 cp config/server.properties config/server03.properties
 ```
 
 编辑 `server03.properties`,修改配置文件中的如下字段：
 
-```ini
+```bash
 broker.id=3
 port=9094
 log.dir=/tmp/kafka-logs-3
