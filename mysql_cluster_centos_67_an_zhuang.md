@@ -284,3 +284,12 @@ ndb-connectstring=192.168.2.250
 [NDB_MGM]
 connect-string=192.168.2.250
 ```
+
+#### SQL节点启动
+
+执行以下操作：
+
+```bash
+[root@localhost mysql]# service mysqld start
+Starting MySQL.. SUCCESS!
+```
