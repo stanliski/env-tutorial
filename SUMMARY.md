@@ -3,4 +3,5 @@
 * [Introduction](README.md)
 * [MySQL](mysql.md)
    * [MySQL CentOS 6.7 安装](mysql_centos_67_an_zhuang.md)
+   * MySQL Cluster CentOS 6.7 安装
 
