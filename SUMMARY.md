@@ -14,4 +14,5 @@
 * [PHP](php.md)
    * [PHP CentOS 6.7 环境安装](php_centos_67_huan_jing_an_zhuang.md)
 * [Java](java.md)
+   * JDK 7 CentOS 6.7 安装
 
