@@ -4,6 +4,9 @@
 
 可以通过以下指令安装`MySQL Community repository`, 命令如下
 
-```bash
-
 ```
+wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
+rpm -Uvh mysql-community-release-el6-5.noarch.rpm
+```
+
+### 安装 MySQL 5.6
