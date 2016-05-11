@@ -39,3 +39,17 @@ mysql-community-libs-compat-5.6.27-2.el6.x86_64
 chkconfig mysqld on
 service mysqld start
 ```
+
+检验MySQL是否启动
+
+```
+service mysqld status
+```
+
+可以看到以下输出
+
+```
+Welcome to the MySQL monitor. Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.6.27 MySQL Community Server (GPL)
+```
