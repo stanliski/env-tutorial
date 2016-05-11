@@ -28,3 +28,12 @@ cd Python-2.7.10
 make altinstall
 ```
 > `make altinstall` 使用是为了防止覆盖系统中默认的python环境`/usr/bin/python`.
+
+#### Step 4: 检测Python版本
+
+检测Python的版本，使用以下口令
+
+```bash
+python2.7 -V
+Python 2.7.10
+```
