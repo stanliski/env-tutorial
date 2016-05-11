@@ -232,6 +232,7 @@ Shutting down MySQL.. SUCCESS!
 ### SQL节点安装
 
 SQL节点和存储节点(NDB节点)安装相同，都执行以下操作；
+
 - sql节点1： 192.168.2.253
 - sql节点2： 192.168.2.254
 
