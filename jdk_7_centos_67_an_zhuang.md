@@ -52,8 +52,8 @@ $ sudo update-alternatives --install /usr/bin/java java /usr/lib/jdk/bin/java 30
 $ sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jdk/bin/javac 300  #使系统默认的javac命令是/usr/lib/jdk/bin中的javac命令
 $ sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jdk/bin/jar 300 #使系统默认的jar命令是/usr/lib/jdk/bin中的jar命令 
 $ sudo update-alternatives --config java   #配置默认java命令
-共有 1 个提供“java”的程序。
 
+共有 1 个提供“java”的程序。
   选项    命令
 -----------------------------------------------
 *+ 1          /usr/lib/jdk/bin/java
