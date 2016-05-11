@@ -105,22 +105,17 @@ NoOfReplicas=1
 [TCP DEFAULT]
 portnumber=3306
 [NDB_MGMD]
-#设置管理节点服务器
 HostName=192.168.2.250
 DataDir=/var/mysql/data
 [NDBD]
-#设置存储节点服务器(NDB节点)
 HostName=192.168.2.251
 DataDir=/var/mysql/data
 [NDBD]
-#第二个NDB节点
 HostName=192.168.2.252
 DataDir=/var/mysql/data
 [MYSQLD]
-#设置SQL节点服务器
 HostName=192.168.2.253
 [MYSQLD]
-#第二个SQL节点
 HostName=192.168.2.254
 ```
 
@@ -160,7 +155,6 @@ id=5 (not connected, accepting connect from 192.168.2.254)
 
 ```
 [root@localhost /]# /usr/local/mysql/bin/ndb_mgm -e shutdown
-#成功后终端打印出以下信息
 Connected to Management Server at: 192.168.2.250:1186
 3 NDB Cluster node(s) have shutdown.
 Disconnecting to allow management server to shutdown.
@@ -233,7 +227,7 @@ connect-string=192.168.2.250
 
 ```
 [root@localhost /]# /etc/rc.d/init.d/mysqld stop
-#或者
+or
 [root@localhost mysql]# /etc/init.d/mysql stop
 Shutting down MySQL.. SUCCESS!
 /usr/local/mysql/bin/mysqladmin -uroot shutdown
