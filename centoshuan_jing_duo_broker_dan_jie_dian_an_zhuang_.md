@@ -67,7 +67,7 @@ cp config/server.properties config/server03.properties
 
 编辑 `server03.properties`,修改配置文件中的如下字段：
 
-```
+```ini
 broker.id=3
 port=9094
 log.dir=/tmp/kafka-logs-3
@@ -75,7 +75,7 @@ log.dir=/tmp/kafka-logs-3
 
 配置完成后，依次启动broker
 
-```
+```bash
 env JMX_PORT=9999 bin/kafka-server-start.sh config/server01.proper
 ties
 env JMX_PORT=10000 bin/kafka-server-start.sh config/server02.prope
