@@ -6,7 +6,7 @@
    * [MySQL Cluster CentOS 6.7 安装](MySQL Cluster CentOS 6.7 安装.md)
 * [Python](python.md)
    * [Python CentOS 6.7 环境安装](Python CentOS 6.7 环境安装.md)
-   * [Pip Centos 6.7 环境安装](pip_centos_67_huan_jing_an_zhuang.md)
+   * [Pip Centos 6.7 环境安装](Pip Centos 6.7 环境安装.md)
    * [Python虚拟环境virtualenv安装](pythonxu_ni_huan_jing_virtualenv_an_zhuang.md)
    * [PIP基本使用教程](pipji_ben_shi_yong_jiao_cheng.md)
 * [Git](git.md)
