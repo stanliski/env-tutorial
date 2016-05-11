@@ -27,4 +27,4 @@ cd Python-2.7.10
 ./configure
 make altinstall
 ```
-  > `make altinstall` 使用是为了防止覆盖系统中默认的python环境`/usr/bin/python`.
+> `make altinstall` 使用是为了防止覆盖系统中默认的python环境`/usr/bin/python`.
