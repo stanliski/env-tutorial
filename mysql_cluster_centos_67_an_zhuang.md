@@ -275,7 +275,7 @@ ysqld
 
 追加以下内容：
 
-```ini
+```bash
 [MYSQLD]
 ndbcluster
 ndb-connectstring=192.168.2.250
