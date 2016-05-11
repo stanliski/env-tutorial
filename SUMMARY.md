@@ -3,7 +3,7 @@
 * [爱咔咔安装手册](README.md)
 * [MySQL](mysql.md)
    * [MySQL CentOS 6.7 安装](MySQL_CentOS_6.7_an_zhuang.md)
-   * [MySQL Cluster CentOS 6.7 安装](MySQL Cluster CentOS 6.7 安装.md)
+   * [MySQL Cluster CentOS 6.7 安装](MySQL_Cluster_CentOS_6.7_an_zhuang.md)
 * [Python](python.md)
    * [Python CentOS 6.7 环境安装](Python CentOS 6.7 环境安装.md)
    * [Pip Centos 6.7 环境安装](Pip Centos 6.7 环境安装.md)
