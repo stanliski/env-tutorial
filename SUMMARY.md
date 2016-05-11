@@ -20,4 +20,5 @@
 * [Jira](jira.md)
    * [Jira CentOS 6.7 安装](jira_centos_67_an_zhuang.md)
 * [Docker](docker.md)
+   * Docker CentOS 7 安装
 
