@@ -1,5 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* MySQL
+* [MySQL](mysql.md)
 
