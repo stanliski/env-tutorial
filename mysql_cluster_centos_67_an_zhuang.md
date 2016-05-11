@@ -316,6 +316,39 @@ Shutting down MySQL.. SUCCESS!
 初始化root密码
 
 ```sql
-mysql>update user set password=PASSWORD(‘NewPassword’) where Use
+update user set password=PASSWORD(‘NewPassword’) where Use
 r='root';
+```
+
+数据库输入密码报错
+
+```sql
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (usin
+g password: NO)
+```
+
+```sql
+set password for 'root'@'localhost' = password('NewPassword');
+flush privileges;
+```
+
+### 功能测试
+
+在管理节点（192.168.2.250）上查看服务状态
+
+```bash
+[root@localhost ~]# /usr/local/mysql/bin/ndb_mgm
+-- NDB Cluster -- Management Client --
+ndb_mgm> show
+Cluster Configuration
+---------------------
+[ndbd(NDB)] 2 node(s)
+id=2 @192.168.15.234 (mysql-5.5.22 ndb-7.2.6, Nodegroup: 0, Mas
+ter)
+id=3 @192.168.15.235 (mysql-5.5.22 ndb-7.2.6, Nodegroup: 1)
+[ndb_mgmd(MGM)] 1 node(s)
+id=1 @192.168.15.231 (mysql-5.5.22 ndb-7.2.6)
+[mysqld(API)] 2 node(s)
+id=4 @192.168.15.232 (mysql-5.5.22 ndb-7.2.6)
+id=5 @192.168.15.233 (mysql-5.5.22 ndb-7.2.6)
 ```
