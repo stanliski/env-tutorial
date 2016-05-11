@@ -1,3 +1,6 @@
+title: pip Centos 6.7 环境安装
+published: 2016-5-11
+
 # pip Centos 6.7 环境安装
 
 
