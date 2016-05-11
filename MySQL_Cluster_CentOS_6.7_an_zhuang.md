@@ -332,8 +332,9 @@ flush privileges;
 ndb_mgm> show
 Cluster Configuration
 ```
-```
+
 output:
+```
 [ndbd(NDB)] 2 node(s)
 id=2 @192.168.15.234 (mysql-5.5.22 ndb-7.2.6, Nodegroup: 0, Mas
 ter)
