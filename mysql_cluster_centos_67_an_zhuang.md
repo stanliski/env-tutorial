@@ -293,3 +293,29 @@ connect-string=192.168.2.250
 [root@localhost mysql]# service mysqld start
 Starting MySQL.. SUCCESS!
 ```
+
+#### SQL节点关闭
+
+最直接的方式：
+
+```bash
+[root@localhost mysql]# /usr/local/mysql/bin/mysqladmin -uroot shut
+down
+```
+
+或者
+
+```bash
+[root@localhost /]# /etc/rc.d/init.d/mysqld stop
+[root@localhost mysql]# /etc/init.d/mysql stop
+Shutting down MySQL.. SUCCESS!
+```
+
+#### 在每个SQL节点修改数据库密码
+
+初始化root密码
+
+```sql
+mysql>update user set password=PASSWORD(‘NewPassword’) where Use
+r='root';
+```
