@@ -86,7 +86,7 @@ rties
 
 运行后的监听端口和网络协议如下：
 
-```
+```bash
 Broker 1 Broker 2 Broker 3
 ----------------------------------------------
 Kafka *:9092/tcp *:9093/tcp *:9094/tcp
@@ -100,7 +100,7 @@ JMX *:9999/tcp *:10000/tcp *:10001/tcp
 在以下命令中创建了一个 “zerg.hydra”的新主题。这个主题使用了3个partitions，并且每个
 partition包含两个replication。
 
-```
+```bash
 bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic zer
 g.hydra --partitions 3 --replication-factor 2
 ```
